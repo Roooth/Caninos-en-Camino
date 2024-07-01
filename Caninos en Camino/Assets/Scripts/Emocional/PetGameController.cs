@@ -1,11 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro; // Importa TextMeshPro
 
 public class PetGameController : MonoBehaviour
 {
     public CircleController circleController;
     public GameObject objectToChangeColor;
+    public Slider progressBar; // Barra de progreso
+    public TextMeshProUGUI winText; // Texto de victoria usando TextMeshPro
+    public TextMeshProUGUI comboText; // Texto de combo usando TextMeshPro
+    public GameObject pauseMenu; // Menú de pausa
+    public TextMeshProUGUI pauseMenuText; // Texto del menú de pausa
     public int successClicks = 5;
     private int currentStreak = 0;
     private float successThreshold = 0.9f;
@@ -38,11 +45,32 @@ public class PetGameController : MonoBehaviour
         {
             Debug.LogError("No se encontró un componente AudioSource.");
         }
+
+        if (progressBar != null)
+        {
+            progressBar.maxValue = successClicks;
+            progressBar.value = 0;
+        }
+
+        if (winText != null)
+        {
+            winText.gameObject.SetActive(false); // Ocultar el texto de victoria al inicio
+        }
+
+        if (comboText != null)
+        {
+            comboText.gameObject.SetActive(false); // Ocultar el texto de combo al inicio
+        }
+
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false); // Ocultar el menú de pausa al inicio
+        }
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0) && !pauseMenu.activeSelf)
         {
             float currentScale = circleController.transform.localScale.x;
             float maxScale = circleController.maxSize;
@@ -52,19 +80,42 @@ public class PetGameController : MonoBehaviour
                 currentStreak++;
                 ChangeColor();
                 PlaySuccessSound();
+                UpdateProgressBar(true);
+                ShowComboText();
+
                 if (currentStreak >= successClicks)
                 {
-                    Debug.Log("You Win!");
-                    // Aquí podrías añadir más lógica, como mostrar un mensaje de victoria.
+                    ShowWinMenu();
                 }
             }
             else
             {
                 currentStreak = 0;
                 PlayFailSound();
+                UpdateProgressBar(false);
+                HideComboText();
             }
 
             Debug.Log("Current Streak: " + currentStreak);
+        }
+    }
+
+    public void PauseGame()
+    {
+        Time.timeScale = 0; // Pausar el juego
+        if (pauseMenu != null && pauseMenuText != null)
+        {
+            pauseMenu.SetActive(true);
+            pauseMenuText.text = "Pausa";
+        }
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1; // Reanudar el juego
+        if (pauseMenu != null)
+        {
+            pauseMenu.SetActive(false);
         }
     }
 
@@ -104,4 +155,56 @@ public class PetGameController : MonoBehaviour
             currentSoundIndex = 0; // Reiniciar al primer sonido de la lista de éxitos
         }
     }
+
+    void UpdateProgressBar(bool success)
+    {
+        if (progressBar != null)
+        {
+            if (success)
+            {
+                progressBar.value++;
+            }
+            else
+            {
+                progressBar.value = Mathf.Max(0, progressBar.value - 1); // Evitar que la barra de progreso sea negativa
+            }
+        }
+    }
+
+    void ShowWinMessage()
+    {
+        if (winText != null)
+        {
+            winText.gameObject.SetActive(true);
+            winText.text = "¡GANASTE!"; // Cambiar el texto a "GANASTE"
+        }
+    }
+
+    void ShowComboText()
+    {
+        if (comboText != null)
+        {
+            comboText.gameObject.SetActive(true);
+            comboText.text = "X " + currentStreak;
+        }
+    }
+
+    void HideComboText()
+    {
+        if (comboText != null)
+        {
+            comboText.gameObject.SetActive(false);
+        }
+    }
+
+    void ShowWinMenu()
+    {
+        Time.timeScale = 0; // Pausar el juego
+        if (pauseMenu != null && pauseMenuText != null)
+        {
+            pauseMenu.SetActive(true);
+            pauseMenuText.text = "¡Ganaste!";
+        }
+    }
 }
+
