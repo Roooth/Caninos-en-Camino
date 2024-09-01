@@ -7,7 +7,7 @@ public class MinijuegoMenu : MonoBehaviour
 {
     public void REGRESAR()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2);
         Time.timeScale = 1.0f;
     }
 }
