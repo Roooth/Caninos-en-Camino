@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class GroundRepeat : MonoBehaviour
 {
-    private float spriteWidth = 20f;
+    private float spriteWidth = 19f;
 
     void Start()
     {

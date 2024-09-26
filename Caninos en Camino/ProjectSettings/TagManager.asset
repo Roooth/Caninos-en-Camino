@@ -15,7 +15,7 @@ TagManager:
   - Grounds
   - Obstacles
   - Ground
-  - 
+  - Perro
   - 
   - 
   - 
@@ -41,4 +41,16 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 739089041
+    locked: 0
+  - name: Clouds
+    uniqueID: 504640033
+    locked: 0
+  - name: Ground
+    uniqueID: 99130861
+    locked: 0
+  - name: Dog
+    uniqueID: 808804923
     locked: 0

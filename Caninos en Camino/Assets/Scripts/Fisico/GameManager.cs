@@ -7,7 +7,9 @@ using TMPro;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject gameOverScreen;
+    [SerializeField] private GameObject scoreTextScreen;
     [SerializeField] private TMP_Text scoreText;
+    [SerializeField] private TMP_Text scoreFinal;
     [SerializeField] private float initialScrollSpeed;
 
     private int score;
@@ -17,6 +19,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameOverScreen.SetActive(false);
+        scoreTextScreen.SetActive(true);
     }
 
     public static GameManager Instance { get; private set; }
@@ -41,7 +44,13 @@ public class GameManager : MonoBehaviour
 
     public void ShowGameOverScreen()
     {
+        scoreFinal.text = "Puntuación: " + score;
         gameOverScreen.SetActive(true);
+    }
+
+    public void ShowScoreText()
+    {
+        scoreTextScreen.SetActive(false);
     }
 
     public void RestartScene()

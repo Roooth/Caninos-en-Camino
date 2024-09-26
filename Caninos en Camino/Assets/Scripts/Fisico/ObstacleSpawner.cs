@@ -16,8 +16,8 @@ public class ObstacleSpawner : MonoBehaviour
         while (true)
         {
             int randomIndex = Random.Range(0, obstacles.Length);
-            float minTime = 0.8f;
-            float maxTime = 2.4f;
+            float minTime = 0.6f;
+            float maxTime = 1.8f;
             float randomTime = Random.Range(minTime, maxTime);
 
             Instantiate(obstacles[randomIndex], transform.position, Quaternion.identity);

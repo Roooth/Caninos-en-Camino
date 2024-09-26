@@ -10,16 +10,20 @@ public class Dog_Controller : MonoBehaviour
     [SerializeField] private float radius;
 
     private Rigidbody2D perroRB;
+    private Animator perroAnimator;
+    public bool ifGrounded = false;
 
     void Start()
     {
         perroRB = GetComponent<Rigidbody2D>();
+        perroAnimator = GetComponent<Animator>();    
     }
 
 
     void Update()
     {
-        bool ifGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, Ground);
+        ifGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, Ground);
+        perroAnimator.SetBool("tocaSuelo", ifGrounded);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -39,6 +43,7 @@ public class Dog_Controller : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Obstacle"))
         {
+            GameManager.Instance.ShowScoreText();
             GameManager.Instance.ShowGameOverScreen();
             Time.timeScale = 0f;
         }
