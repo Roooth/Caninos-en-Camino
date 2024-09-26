@@ -41,6 +41,16 @@ public class SceneTransition : MonoBehaviour
     {
         StartCoroutine(Transition(false, "Emocional"));
     }
+
+    public void FISICO()
+    {
+        StartCoroutine(Transition(false, "Fisica"));
+    }
+
+    public void CREDITOS()
+    {
+        StartCoroutine(Transition(false, "Creditos"));
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.F1))
