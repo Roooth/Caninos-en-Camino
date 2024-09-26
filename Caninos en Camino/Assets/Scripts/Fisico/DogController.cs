@@ -25,7 +25,7 @@ public class Dog_Controller : MonoBehaviour
         ifGrounded = Physics2D.OverlapCircle(groundCheck.position, radius, Ground);
         perroAnimator.SetBool("tocaSuelo", ifGrounded);
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.Mouse0))
         {
             if (ifGrounded)
             {
