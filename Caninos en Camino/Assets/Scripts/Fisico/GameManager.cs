@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         gameOverScreen.SetActive(false);
-        scoreTextScreen.SetActive(true);
+        scoreTextScreen.SetActive(false);
     }
 
     public static GameManager Instance { get; private set; }
@@ -40,12 +40,21 @@ public class GameManager : MonoBehaviour
     {
         UpdateScore();
         UpdateSpeed();
+        if (score == 0)
+        {
+            ShowScoreTextT();
+        }
     }
 
     public void ShowGameOverScreen()
     {
         scoreFinal.text = "Puntuación: " + score;
         gameOverScreen.SetActive(true);
+    }
+
+    public void ShowScoreTextT()
+    {
+        scoreTextScreen.SetActive(true);
     }
 
     public void ShowScoreText()
@@ -64,7 +73,7 @@ public class GameManager : MonoBehaviour
         int scorePerSeconds = 10;
 
         timer += Time.deltaTime;
-        score = (int)(timer * scorePerSeconds);
+        score = (int)((timer * scorePerSeconds) - 15);
         scoreText.text = string.Format("{0:00000}", score);
     }
 

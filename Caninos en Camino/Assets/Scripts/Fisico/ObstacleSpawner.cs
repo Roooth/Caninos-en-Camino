@@ -16,7 +16,7 @@ public class ObstacleSpawner : MonoBehaviour
         while (true)
         {
             int randomIndex = Random.Range(0, obstacles.Length);
-            float minTime = 0.6f;
+            float minTime = 0.7f;
             float maxTime = 1.8f;
             float randomTime = Random.Range(minTime, maxTime);
 
